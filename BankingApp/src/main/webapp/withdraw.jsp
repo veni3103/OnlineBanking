@@ -10,6 +10,7 @@
 <form action="withdraw" method="post">
 <a href="home.jsp">Home</a>
 <br>
+<input type="hidden" name="type" value="WITHDRAW">
 <label>Account number</label>
 <input type="number" name="accountnumber" id="accountnumber" placeholder="Enter your account number" required>
 <br>

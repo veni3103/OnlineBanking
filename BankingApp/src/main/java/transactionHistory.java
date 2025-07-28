@@ -1,51 +1,57 @@
-package userinfo;
+
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 import connection.DBConnection;
 
 /**
- * Servlet implementation class login
+ * Servlet implementation class transactionHistory
  */
-@WebServlet("/login")
-public class login extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@WebServlet("/transactionHistory")
+public class transactionHistory extends HttpServlet {
 
-	public login() {
+	public transactionHistory() {
 		super();
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("hi");
 		int number=Integer.parseInt(request.getParameter("accountnumber"));
 		String password=request.getParameter("password");
 		PrintWriter res=response.getWriter();
+		HttpSession session=request.getSession();
+		session.setAttribute("usernumber", number);
 		Connection con;
 		try {
 			con=DBConnection.getConnection();
-			PreparedStatement state=con.prepareStatement("select * from  users where accountnumber=? and password=?");
-			state.setInt(1, number);
-			state.setString(2, password);
-			ResultSet result=state.executeQuery();
+			Statement state=con.createStatement();
+			ResultSet result=state.executeQuery("select * from users where accountnumber="+number+ " and password='"+password+ "';" );
 			if(result.next()) {
-				response.sendRedirect("home.jsp");
+				System.out.println("end");
+				response.sendRedirect("viewtranscation.jsp");
+
 			}
 			else {
-				res.println("<script>alert('Invalid input')</script>");
-				response.sendRedirect("Login.jsp");
+				res.println("<script>alert('Invalid account number or password')</script>");
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 
-	}
 
+
+
+	}
 }

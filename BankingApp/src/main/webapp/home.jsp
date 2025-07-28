@@ -11,9 +11,9 @@
 <a href="withdraw.jsp">Withdrawal</a>
 <a href="deposit.jsp">Deposit</a>
 <a href="balance.jsp">Check balance</a>
-<a href="transaction.jsp">ViewTransaction History</a>
+<a href="TransactionHistory.jsp">ViewTransaction History</a>
 <a href="TransferMoney.jsp">MoneyTransfer</a>
-
+<a href="forgetpassword.jsp">Forget Password</a>
 </form>
 
 </body>

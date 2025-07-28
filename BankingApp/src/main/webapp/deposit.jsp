@@ -13,6 +13,7 @@
 <br>
 <br>
 <label>Account number</label>
+ <input type="hidden" name="type" value="DEPOSIT">
 <input type="number" name="accountnumber" id="accountnumber" placeholder="enter your account number"  required>
 <br>
 <label for="password">password</label>
@@ -21,6 +22,7 @@
 <label for="amount">deposit amount</label>
 <input type="number"  name="amount" id="amount" placeholder="Enter deposit amount" required>
 <br>
+<a href="forgetpassword.jsp">Forget Password</a>
 <button type="submit">submit</button>
 </form>
 

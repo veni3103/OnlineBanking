@@ -14,9 +14,9 @@ import java.sql.Statement;
 import connection.DBConnection;
 
 @WebServlet("/viewBalance")
-public class viewBalance extends HttpServlet {
+public class ViewBalance extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public viewBalance() {
+	public ViewBalance() {
 		super();
 	}
 

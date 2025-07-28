@@ -8,6 +8,7 @@
 </head>
 <body>
 <form action="transferAmount" method="post">
+ <input type="hidden" name="type" value="TRANSFER">
 <label for="sendernumber"> Sender Account number</label>
 <input type="number" name="sendernumber" id="sendernumber" placeholder="Enter sender AccounNumber here" required>
 <br>

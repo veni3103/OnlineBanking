@@ -10,15 +10,17 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import connection.DBConnection;
 
 
 @WebServlet("/transferAmount")
-public class transferAmount extends HttpServlet {
+public class TransferAmount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
-    public transferAmount() {
+    public TransferAmount() {
         super();
     }
 
@@ -29,12 +31,15 @@ public class transferAmount extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String type=request.getParameter("type");
 		int sendernumber=Integer.parseInt(request.getParameter("sendernumber"));
 		String password=request.getParameter("password");
 		int receivernumber=Integer.parseInt(request.getParameter("receivernumber"));
 		int amount=Integer.parseInt(request.getParameter("amount"));
 		int confirm=Integer.parseInt(request.getParameter("confirm"));
 		PrintWriter writer=response.getWriter();
+		LocalDateTime now = LocalDateTime.now();
+		Timestamp timestamp = Timestamp.valueOf(now);
 		if(confirm==1) {
 			Connection con;
 			try {
@@ -43,23 +48,19 @@ public class transferAmount extends HttpServlet {
 				Statement state2=con.createStatement();
 				ResultSet sendb=state.executeQuery("select availablecash from users where accountnumber="+sendernumber+ " and password='"+password +"';" );
 				ResultSet rs=state2.executeQuery("select availablecash from users where accountnumber= "+ receivernumber+";");
-				System.out.println("hi");
 				boolean first=sendb.next();
 				boolean second=rs.next();
-				System.out.println("hello");
 				if(first && second) {
-					System.out.println("if");
 					int senderbalance=sendb.getInt(1);
 					
 					if(senderbalance>=amount) {
-						System.out.println("3rd if");
-						System.out.println("amount");
 						int currentbalance=senderbalance-amount;
 						int updatebalance=state.executeUpdate("update users set availablecash= "+currentbalance+" where accountnumber="+sendernumber+";");
 						int receiverbalance=rs.getInt(1);
-						System.out.println("balance");
 						int balance=receiverbalance+amount;
 						int updatebalances=state.executeUpdate("update users set availablecash="+balance+ " where accountnumber="+receivernumber+";");
+						int transcation1=state.executeUpdate("insert into transactionhistory (user_id,amount_type,description ,date_time ,balance_after,transaction_amount) values("+sendernumber+",'"+type+"','AMOUNT TRANSFER TO "+receivernumber+"','"+ timestamp+"',"+currentbalance+","+amount+");");
+						int transcation2=state.executeUpdate("insert into transactionhistory (user_id,amount_type,description ,date_time ,balance_after,transaction_amount) values("+receivernumber+",'"+type+"','AMOUNT TRANSFER FROM  "+sendernumber+"','"+ timestamp+"',"+balance+","+amount+");");
 						writer.println("Transcation succesful");
 						response.sendRedirect("home.jsp");
 					}
