@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Money Transfer</title>
 </head>
 <body>
 <form action="transferAmount" method="post">

@@ -4,13 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Forget Password</title>
 </head>
 <body>
 
 <form action="ForgetPassword" method="post">
 <label>Account number</label>
- <input type="hidden" name="type" value="DEPOSIT">
 <input type="number" name="accountnumber" id="accountnumber" placeholder="enter your account number"  required>
 <br>
 <label for="email" >Email id</label>

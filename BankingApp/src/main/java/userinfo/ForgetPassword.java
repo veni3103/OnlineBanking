@@ -33,7 +33,6 @@ public class ForgetPassword extends HttpServlet {
 			con=DBConnection.getConnection();
 			Statement statement=con.createStatement();
 			ResultSet result=statement.executeQuery("select * from users where accountnumber="+accountnumber + " and email='"+email+"' and dob='"+DOB +"';");
-			System.out.println("result");
 			if(result.next()) {
 				int rs=statement.executeUpdate("update users set password='"+password+"' where accountnumber="+accountnumber+";");
 				if(rs>0) {
@@ -41,9 +40,12 @@ public class ForgetPassword extends HttpServlet {
 					response.sendRedirect("home.jsp");
 					
 				}
+				else {
+					res.println("hi your password recent request is fail");
+				}
 			}
 			else {
-				res.println("hi your password recent request is fail");
+				res.println("Invalid user information");
 			}
 		}
 			catch(Exception e) {

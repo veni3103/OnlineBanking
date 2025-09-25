@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Statement</title>
 </head>
 <body>
 <form action="transactionHistory" method="post">
