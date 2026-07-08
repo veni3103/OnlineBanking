@@ -61,27 +61,52 @@ public class TransferAmount extends HttpServlet {
 						int updatebalances=state.executeUpdate("update users set availablecash="+balance+ " where accountnumber="+receivernumber+";");
 						int transcation1=state.executeUpdate("insert into transactionhistory (user_id,amount_type,description ,date_time ,balance_after,transaction_amount) values("+sendernumber+",'"+type+"','AMOUNT TRANSFER TO "+receivernumber+"','"+ timestamp+"',"+currentbalance+","+amount+");");
 						int transcation2=state.executeUpdate("insert into transactionhistory (user_id,amount_type,description ,date_time ,balance_after,transaction_amount) values("+receivernumber+",'"+type+"','AMOUNT TRANSFER FROM  "+sendernumber+"','"+ timestamp+"',"+balance+","+amount+");");
-						writer.println("Transcation succesful");
-						response.sendRedirect("home.jsp");
+						writer.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+						writer.print("TRANSACTION SUCCESFULLY DONE");
+						writer.println("<script>");
+						writer.println("setTimeout(function(){ window.location.href='home.jsp'; }, 3000);");
+						writer.println("</script>");
+						writer.println("</body></html>");
 					}
 					else {
-						writer.println("<script>alert('insufficient Balance')</script>");
-						response.sendRedirect("home.jsp");
+						writer.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+						writer.print("INSUFFICIENT BALANCE");
+						writer.println("<script>");
+						writer.println("setTimeout(function(){ window.location.href='home.jsp'; }, 3000);");
+						writer.println("</script>");
+						writer.println("</body></html>");
+						
 					}
 				}
 				else {
-					writer.println("<script>alert('Invalid account number')</script>");
-					response.sendRedirect("withdraw.jsp");
+					writer.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+					writer.print("INVALID ACCOUNTNUMBER");
+					writer.println("<script>");
+					writer.println("setTimeout(function(){ window.location.href='home.jsp'; }, 3000);");
+					writer.println("</script>");
+					writer.println("</body></html>");
+					
 				}
 			}
 			catch (Exception e) {
-				e.printStackTrace();			}
+				e.printStackTrace();		
+				writer.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+				writer.print("SOMETHINK WENT WRONG PLEASE TRY AGAIN");
+				writer.println("<script>");
+				writer.println("setTimeout(function(){ window.location.href='home.jsp'; }, 5000);");
+				writer.println("</script>");
+				writer.println("</body></html>");
+				}
 			
 			
 		}
 		else {
-			writer.println("<script>alert('Transacction Failed')</script>");
-			response.sendRedirect("home.jsp");
+			writer.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+			writer.print("TRANSACTION FAILED PLEASE TRY AGAIN");
+			writer.println("<script>");
+			writer.println("setTimeout(function(){ window.location.href='home.jsp'; }, 3000);");
+			writer.println("</script>");
+			writer.println("</body></html>");
 		}
 		
 	}

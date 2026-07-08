@@ -36,21 +36,42 @@ public class ForgetPassword extends HttpServlet {
 			if(result.next()) {
 				int rs=statement.executeUpdate("update users set password='"+password+"' where accountnumber="+accountnumber+";");
 				if(rs>0) {
-					res.println("hi your password recent successfully done");
-					response.sendRedirect("home.jsp");
+				
+					res.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+					res.print("HI YOUR PASSWORD RESET SUCCESSFULLY DONE");
+					res.println("<script>");
+					res.println("setTimeout(function(){ window.location.href='home.jsp'; }, 3000);");
+					res.println("</script>");
+					res.println("</body></html>");
 					
 				}
 				else {
-					res.println("hi your password recent request is fail");
+					res.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+					res.print("SOMETHINK WENT WRONG PLEASE TRY AGAIN");
+					res.println("<script>");
+					res.println("setTimeout(function(){ window.location.href='home.jsp'; }, 3000);");
+					res.println("</script>");
+					res.println("</body></html>");
 				}
 			}
 			else {
-				res.println("Invalid user information");
+				res.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+				res.print("INAVALID USER INFO PLEASE TRY AGAIN");
+				res.println("<script>");
+				res.println("setTimeout(function(){ window.location.href='home.jsp'; }, 3000);");
+				res.println("</script>");
+				res.println("</body></html>");
 			}
 		}
 			catch(Exception e) {
 				e.printStackTrace(System.err);
 				System.out.println("error");
+				res.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+				res.print("SOMETHINK WENT WRONG PLEASE TRY AGAIN");
+				res.println("<script>");
+				res.println("setTimeout(function(){ window.location.href='home.jsp'; }, 5000);");
+				res.println("</script>");
+				res.println("</body></html>");
 			}
 	}
 

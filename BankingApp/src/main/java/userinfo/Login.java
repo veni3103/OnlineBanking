@@ -29,6 +29,7 @@ public class Login extends HttpServlet {
 		String password=request.getParameter("password");
 		PrintWriter res=response.getWriter();
 		Connection con;
+		System.out.println(number +":"+password);
 		try {
 			con=DBConnection.getConnection();
 			PreparedStatement state=con.prepareStatement("select * from  users where accountnumber=? and password=?");

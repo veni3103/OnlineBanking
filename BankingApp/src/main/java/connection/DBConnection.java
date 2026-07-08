@@ -9,7 +9,7 @@ public class DBConnection {
 
 		public  static Connection  getConnection() throws Exception {
 			if(connection==null) {
-				//Class.forName("org.postgresql.Driver");
+				Class.forName("org.postgresql.Driver");
 				connection=DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/onlinebanking?user=postgres&password=postgres");
 				return connection;
 			}

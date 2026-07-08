@@ -40,15 +40,28 @@ public class ViewBalance extends HttpServlet {
 						balance=val.getInt(1);
 
 					}
+					writer.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");
 					writer.println("AccounNumber :"+number);
 					writer.println("AccountBalance:"+balance);
+					writer.println("</body></html>");
 				}
 				else {
-					writer.println("<script>alert('Invalid input')</script>");
-					response.sendRedirect("home.jsp");
+					writer.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+					writer.print("INVALID INPUT");
+					writer.println("<script>");
+					writer.println("setTimeout(function(){ window.location.href='home.jsp'; }, 3000);");
+					writer.println("</script>");
+					writer.println("</body></html>");
+				
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
+				writer.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+				writer.print("SOMETHINK WENT WRONG PLEASE TRY AGAIN");
+				writer.println("<script>");
+				writer.println("setTimeout(function(){ window.location.href='home.jsp'; }, 5000);");
+				writer.println("</script>");
+				writer.println("</body></html>");
 			}
 
 		}

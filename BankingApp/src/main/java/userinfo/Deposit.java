@@ -51,21 +51,31 @@ public class Deposit extends HttpServlet {
 				int updatebalance=state.executeUpdate("update users set availablecash="+currentbalance+" where accountnumber="+accountnumber+";");
 				//writer.println(" you deposit "+amount+" rupees successfully");
 				int transcation=state.executeUpdate("insert into transactionhistory (user_id,amount_type,description ,date_time ,balance_after,transaction_amount) values("+accountnumber+",'"+type+"','AMOUNT CREDITED','"+ timestamp+"',"+currentbalance+","+amount+");");
-				writer.println("<html><body>");
-				writer.println("<h3>Job done</h3>");
-				writer.println("<script>setTimeout(() => { window.location = '/demo'; }, 2000);</script>");
+				writer.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");
+				writer.println("<h3>AMOUNT DEPOSIT SUCCESFULLY DONE</h3>");
+				writer.println("<script>setTimeout(() => { window.location = 'home.jsp'; }, 5000);</script>");
 				writer.println("</body></html>");
-				response.sendRedirect("home.jsp");
 			}
 
 
 			else {
-				writer.println("<script>alert('Invalid account number')</script>");
-				response.sendRedirect("deposit.jsp");
+				
+				writer.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+				writer.print("INVALID ACCOUNTNUMBEER OR PASSWORD");
+				writer.println("<script>");
+				writer.println("setTimeout(function(){ window.location.href='home.jsp'; }, 5000);");
+				writer.println("</script>");
+				writer.println("</body></html>");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			writer.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+			writer.print("SOMETHINK WENT WRONG PLEASE TRY AGAIN");
+			writer.println("<script>");
+			writer.println("setTimeout(function(){ window.location.href='home.jsp'; }, 5000);");
+			writer.println("</script>");
+			writer.println("</body></html>");
 		}
 
 	}

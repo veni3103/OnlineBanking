@@ -41,12 +41,14 @@ public class Withdraw extends HttpServlet {
 				Statement state=con.createStatement();
 				ResultSet result=state.executeQuery("select * from users where accountnumber= "+number+ " and password='"+password+"';" );
 				if(result.next()) {
-					ResultSet rs=state.executeQuery("select availablecash from users where accountnumber="+number+  ";");
+					ResultSet rs=state.executeQuery("select availablecash from users where accountnumber="+number+";");
 					int balance=0;
 					if(rs.next()) {
 						balance=rs.getInt(1);
 					}
+					System.out.println(balance);
 					if(balance>=amount) {
+						System.out.println(amount);
 						int currentbalance=balance-amount;
 						int updatebalance=state.executeUpdate("update users set availablecash= "+currentbalance+" where accountnumber="+number+";");
 						int transcation=state.executeUpdate("insert into transactionhistory (user_id,amount_type,description ,date_time ,balance_after,transaction_amount) values("+number+",'"+type+"','ATM WITHDRAW','"+ timestamp+"',"+currentbalance+","+amount+");");
@@ -54,24 +56,42 @@ public class Withdraw extends HttpServlet {
 						response.sendRedirect("home.jsp");
 					}
 					else {
-						res.println("<script>alert('insufficient Balance')</script>");
-						response.sendRedirect("home.jsp");
+						res.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+						res.print("Insufficient Balance");
+						res.println("<script>");
+						res.println("setTimeout(function(){ window.location.href='home.jsp'; }, 5000);");
+						res.println("</script>");
+						res.println("</body></html>");
 					}
 				}
 				else {
-					res.println("<script>alert('Invalid account number')</script>");
-					response.sendRedirect("withdraw.jsp");
+					
+					  res.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+					    res.print("Invalid Account  Number");
+						res.println("<script>");
+						res.println("setTimeout(function(){ window.location.href='withdraw.jsp'; }, 5000);");
+						res.println("</script>");
+					    res.println("</body></html>");
 				}
 			}
 			catch (Exception e) {
 				e.printStackTrace();
+				res.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+				res.print("SOMETHINK WENT WRONG PLEASE TRY AGAIN");
+				res.println("<script>");
+				res.println("setTimeout(function(){ window.location.href='home.jsp'; }, 5000);");
+				res.println("</script>");
+				res.println("</body></html>");
 			}
 
 		}
 		else {
-			res.println("<script>alert('Invalid otp')</script>");
-			response.sendRedirect("withdraw.jsp");
-
+			 res.println("<html><body style='display:flex; justify-content:center; align-items:center; height:100vh;'>");  
+			    res.print("Invalid OTP");
+				res.println("<script>");
+				res.println("setTimeout(function(){ window.location.href='withdraw.jsp'; }, 5000);");
+				res.println("</script>");
+			    res.println("</body></html>");
 		}
 
 	}
